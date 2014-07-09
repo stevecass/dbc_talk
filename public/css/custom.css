@@ -1,0 +1,41 @@
+* {
+  font-family: helvetica, arial, sans-serif;
+}
+form fieldset {
+  font-family: helvetica, arial, sans-serif;
+  padding: 1em;
+  
+  }
+
+form legend {
+   font-size: 1.4 em;
+}
+
+form label {
+  text-align:right;
+  float:left;
+  width:150px;
+  font-weight: bold;
+  padding-right: 5px;
+  }
+
+form input, textarea {
+   float:left;
+   margin-bottom: 10px;
+}
+
+textarea, form input[type=text] {
+     width:300px;
+}
+
+form p{
+  clear:both;
+}
+form {
+  width:600px;
+  margin-bottom: 20px;
+  display:none;
+}
+p.toggler {
+  cursor: pointer;
+}

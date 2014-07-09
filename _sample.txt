@@ -1,0 +1,29 @@
+topics
+  threads
+    messages
+
+#Sample API calls
+
+get    '/topics'      #get a list of topics
+post   '/topics'      #create a topic
+get    '/topics/:id'      #get a single topic
+put    '/topics:/id'      #update a single topic
+delete '/topics:/id'      #delete  a single topic
+
+get    '/topics/:topicid/threads' #get threads in a topic
+post   '/topics/:topicid/threads' #add a thread to a topic
+get    '/topics/:topicid/threads/:id' #get one thread
+put    '/topics/:topicid/threads/:id' #update one thread
+
+get    '/topics/:topicid/threads/:id/messages'
+post   '/topics/:topicid/threads/:id/messages'
+put    '/topics/:topicid/threads/:threadid/messages/:id'
+delete '/topics/:topicid/threads/:threadid/messages/:id'
+
+get    '/messages/latest'
+
+get    '/users' #list users
+get    '/users/:id' #show one user
+get    '/users/:id/profile' #show user profile
+get    '/users/:id/messages'  #show messages authored by user
+get    '/users/:id/threads' #show threads created by user

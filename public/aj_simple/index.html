@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+ <html>
+ <head>
+  <title>Sample Super Simple API client</title>
+    <style>
+       .main { width: 400px; float:left; padding:10px;}
+       .main-panel { width: 600px; float:left; padding:10px; margin-top:10px; }
+       .singleItem { width: 100%; display:block; border:1px dashed gray; margin-bottom: 10px; padding:5px 0;}
+       .textContainer { text-align: center; }
+    </style>
+    <link rel="stylesheet" href="/css/reset-min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/angular.js"></script>
+
+  <script >
+  var myModule = angular.module('myModule', []);
+
+   myModule.service('myService', function ($http, $timeout) {
+      var self = this;
+      self.messages = [];
+      self.thread = null;
+
+      self.getOneThread = function(topicId, threadId) {
+        var path = "/topics/" + topicId + "/threads/" + threadId + "/messages";
+        $http.get(path).success(function (data) {
+           self.thread = angular.fromJson(data);
+        });
+      }
+
+      self.getLiveData = function() {
+        var url = '/messages/latest';
+          $http.get(url).success(function (data) {
+            self.messages = angular.fromJson(data);
+         });
+      };
+
+      var poll = function() {
+      $timeout(function() {
+        self.getLiveData();
+        poll();
+      }, 2500);
+    };     
+   poll();
+   });
+
+    var myController = function ($scope, $sce, myService) {
+
+      $scope.myService = myService;
+
+      $scope.threadClick = function(messagesItem) {
+        var threadId = messagesItem['threadid'];
+        var topicId = messagesItem['topic_id'];
+        myService.getOneThread(topicId, threadId);
+      };
+
+      $scope.toTrusted = function(html_code) {
+        return $sce.trustAsHtml(html_code);
+      };
+
+      $scope.convertDate = function(isoDateString) {
+        var d = new Date(isoDateString);
+        return d.toLocaleString();
+      };
+  };
+   
+  myModule.controller(myController);
+
+</script>
+ </head>
+ <body>
+   <div class="container" ng-app="myModule" ng-controller="myController"><h1>Sample Super Simple API client in Angular</h1>
+    <h2>TalkDeck - bit like TweetDeck only not as pretty</h2>
+    <div class="main" > <h2>Latest messages</h2>
+       <div class="singleItem" ng-repeat="messagesItem in myService.messages">
+             <div class="textContainer" >
+                <h4 ng-click="threadClick(messagesItem)"><a href="javascript:void(0);" 
+                  ng-bind-html="toTrusted(messagesItem.thread_name)"></a></h4>
+                <h4>{{ messagesItem.topic_name }}</h4>
+                <div ng-bind-html="toTrusted(messagesItem.raw_message)"></div>
+             </div>
+       </div>
+    </div>
+    <div class="main-panel">
+      <div>
+        <h2>{{myService.thread.name}}</h2>
+        <h3> {{myService.thread.firstpost_nick}} {{myService.thread.created}}</h3>
+      </div>
+      <div class="a_thread" ng-repeat="message in myService.thread.messages">
+        <div class="single_post">
+          <div class="post_header">{{message.nickname}}  at  <span ng-bind-html="toTrusted(convertDate(message.posttime))"></span> </div>
+          <div class="post_body" ng-bind-html="toTrusted(message.message)" ></div>
+      </div>
+
+    </div>
+  </div>
+
+
+ </body>
+ </html>

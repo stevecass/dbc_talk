@@ -1,0 +1,26 @@
+.threads
+  %h2.topic.name 
+    = topic.name
+
+  %table.thread_list
+    %th.thread_name Thread Name
+    %th.num_posts Msgs
+    %th.thread_created Started 
+    %th.thread_lastpost Latest post 
+
+    %tbody
+      -topic.threads.each do |thread|
+        %tr{class: cycle}
+          %td.thread_name
+            %a{href: "/topics/#{thread.topicid}/threads/#{thread.id}/messages", title:thread.name} 
+              =thread.name
+          %td.num_posts
+            = thread.numposts
+          %td.thread_created.btime
+            = board_time(thread.created) 
+            %br
+            = trunc_nick(thread.firstpost_nick)
+          %td.thread_lastpost.btime
+            = board_time(thread.lastpost) 
+            %br
+            = trunc_nick(thread.lastpost_nick)

@@ -1,0 +1,127 @@
+body {
+        font-family: helvetica, arial, sans-serif;
+        margin:10px;
+    }
+#wrapper{
+    width:90%;
+    margin:auto;
+    font-size:14px;
+    overflow: hidden;
+    float:none;
+}
+ 
+#header{
+    background-color:#ade;
+    margin: 5px 0;
+    padding: 5px 0;
+
+}
+ 
+#header>h1{
+    font-size:200%;
+}
+ 
+h2{
+    font-size:130%;
+    font-family:sans-serif;
+}
+ 
+#content{
+    margin:12px 0;
+    float:left;
+    max-width:800px;
+}
+ 
+#side_bar{
+    margin:12px 0;
+    width :300px;
+    float:right;
+    clear:none;
+    min-height:900px;
+}
+#side_bar .mpu{
+    width:300px;
+    height:250px;
+    margin: 10px 0;
+}
+ 
+h1{
+    font-size:150%;
+}
+ 
+#footer{
+    clear:both;
+    background-color:#ade;
+    font-size:75%;
+    font-family:sans-serif;
+    color:#333;
+    border-top:solid 1px #69a;
+    margin: 5px 0;
+    padding: 5px 0;
+}
+ 
+ol{
+    padding-top:20px;
+    background-color:#ade;
+    display:block;
+}
+ 
+li{
+    color:white;
+    text-align:center;
+    display:inline;
+    padding:5px 10px 0 10px;
+    margin-right:2px;
+    background-color: #69a;
+}
+ 
+a{
+    text-decoration:none;
+}
+
+table.thread_list th {
+    font-weight: bolder;
+    padding: 4px;
+    margin-top:10px;
+}
+
+table.thread_list {
+    width:800px;
+}
+
+table.thread_list td {
+  vertical-align: top;
+  padding: 4px;
+}
+
+td.thread_name {
+    width:500px;
+}
+td.btime {
+    width:200px;
+}
+
+td.nick {
+    width:100px;
+    font-size:0.8em;
+}
+td.num_posts{
+    width:50px;
+    text-align: center;
+}
+h2.topic_name {
+    font-size: 1.2em;
+    font-weight: bolder;
+    margin-bottom: 10px;
+}
+table.thread_list tr.odd {
+    background-color: #ade;
+}
+div.post_header {
+    margin-top:16px;
+    background-color: #ade;
+    padding:4px 0;
+}
+div.post_body {
+    margin:4px 0 8px 0;
+}

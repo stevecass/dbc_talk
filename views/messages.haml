@@ -1,0 +1,18 @@
+.thread.name
+  %a{href: "/topics"}
+    Topics: 
+  %a{href: "/topics/#{thread.topicid}/threads"}
+    #{thread.topic_name}:
+  %a{href:"/topics/#{thread.topicid}/threads/#{thread.id}/messages"}
+    #{thread.name}
+
+.messages
+-thread.messages.each do |message|
+  .post_header
+    From: 
+    %a{href: "/user/#{message.userid}/profile"}
+      #{message.nickname} 
+    at #{board_time(message.posttime)} UTC 
+  .post_body
+    =message.message
+      

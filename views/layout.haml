@@ -1,0 +1,28 @@
+!!!
+%html
+  %head
+    %title Talk minimalist
+    %link(rel="stylesheet" href="http://yui.yahooapis.com/2.8.0r4/build/reset/reset-min.css")
+    %link(rel="stylesheet" href="/css/styles.css")
+    %script(src="//code.jquery.com/jquery-1.11.0.min.js")
+    %script(src="/js/local.js")
+
+  %body
+    #wrapper
+      #header
+        %h1 Mumsnet Talk stripped down
+        %h2 This is a sub-title of some sort
+ 
+      #content
+        =yield
+ 
+      #side_bar
+        %h1 Side Bar
+        %p
+        This is the side bar of the webpage
+        .mpu
+          %img{src:"http://placehold.it/300x250/CCFFCC&text=300x250+MPU+space"}
+ 
+      #footer
+        %p
+          This is the footer text where you put the about and contact and terms and conditions and things.
