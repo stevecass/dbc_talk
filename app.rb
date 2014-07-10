@@ -6,7 +6,7 @@ require './helpers'
 ActiveRecord::Base.establish_connection(
   adapter:  'mysql2',
   host:     '127.0.0.1',
-  #port:     '1112',
+  port:     '1112',
   database: 'mumsnet',
   encoding: 'latin1'
 )
@@ -113,4 +113,8 @@ end
 
 get '/messages/latest' do
   Message.limit(10).includes(:msg_thread => :topic).order('id desc').to_json(methods: [:thread_name, :topic_id, :topic_name])
+end
+
+get '/messages/newer/:id' do
+  Message.where('id > ?', :id).limit(10).includes(:msg_thread => :topic).order('id desc').to_json(methods: [:thread_name, :topic_id, :topic_name])
 end

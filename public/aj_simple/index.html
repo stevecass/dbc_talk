@@ -19,6 +19,7 @@
       var self = this;
       self.messages = [];
       self.thread = null;
+      self.maxId = 0;
 
       self.getOneThread = function(topicId, threadId) {
         var path = "/topics/" + topicId + "/threads/" + threadId + "/messages";
@@ -28,9 +29,22 @@
       }
 
       self.getLiveData = function() {
+        var maxSize = 10;
         var url = '/messages/latest';
+        if (self.maxId != 0) {
+          url = '/messages/newer/' + self.maxId;
+        }
           $http.get(url).success(function (data) {
-            self.messages = angular.fromJson(data);
+            var newMessages =  angular.fromJson(data);
+            newMessages.concat(self.messages);
+            if (newMessages.length > maxSize) {
+              newMessages = newMessages.slice(0, maxSize);
+            }
+            self.messages = newMessages;
+
+            if (self.messages.length > 0) {
+              self.maxId = self.messages[0].id;
+            }
          });
       };
 
