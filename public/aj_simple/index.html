@@ -5,8 +5,9 @@
     <style>
        .main { width: 400px; float:left; padding:10px;}
        .main-panel { width: 600px; float:left; padding:10px; margin-top:10px; }
-       .singleItem { width: 100%; display:block; border:1px dashed gray; margin-bottom: 10px; padding:5px 0;}
+       .singleItem { width: 100%; display:block; border:1px dashed gray; margin-bottom: 10px; padding:5px 1px;}
        .textContainer { text-align: center; }
+       .short_message_body { margin-top:5px;}
     </style>
     <link rel="stylesheet" href="/css/reset-min.css">
     <link rel="stylesheet" href="/css/styles.css">
@@ -96,9 +97,9 @@
     <div class="main" > <h2>Latest messages</h2>
        <div class="singleItem" ng-repeat="messagesItem in myService.messages">
              <div class="textContainer" >
-                <h4 ng-click="threadClick(messagesItem)"><a href="javascript:void(0);" 
-                  ng-bind-html="toTrusted(messagesItem.thread_name)"></a> ({{ messagesItem.topic_name }})</h4>
-                <div ng-bind-html="toTrusted(shortMessage(messagesItem.message))"></div>
+                <h4 ng-click="threadClick(messagesItem)">{{ messagesItem.topic_name }} <a href="javascript:void(0);" 
+                  ng-bind-html="toTrusted(messagesItem.thread_name)"></a> ({{messagesItem.nickname}})</h4>
+                <div class="short_message_body" ng-bind-html="toTrusted(shortMessage(messagesItem.message))"></div>
              </div>
        </div>
     </div>
