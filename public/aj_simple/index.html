@@ -36,7 +36,7 @@
         }
           $http.get(url).success(function (data) {
             var newMessages =  angular.fromJson(data);
-            newMessages.concat(self.messages);
+            newMessages = newMessages.concat(self.messages);
             if (newMessages.length > maxSize) {
               newMessages = newMessages.slice(0, maxSize);
             }
@@ -75,6 +75,15 @@
         var d = new Date(isoDateString);
         return d.toLocaleString();
       };
+
+      $scope.shortMessage = function (s) {
+        s = s.replace(/<(?:.|\n)*?>/gm, '');
+        var maxLen = 200;
+        if (s.length > maxLen)
+          s = s.substring(s, maxLen).trim() + '...';
+        return s;
+      }
+
   };
    
   myModule.controller(myController);
@@ -88,9 +97,8 @@
        <div class="singleItem" ng-repeat="messagesItem in myService.messages">
              <div class="textContainer" >
                 <h4 ng-click="threadClick(messagesItem)"><a href="javascript:void(0);" 
-                  ng-bind-html="toTrusted(messagesItem.thread_name)"></a></h4>
-                <h4>{{ messagesItem.topic_name }}</h4>
-                <div ng-bind-html="toTrusted(messagesItem.message)"></div>
+                  ng-bind-html="toTrusted(messagesItem.thread_name)"></a> ({{ messagesItem.topic_name }})</h4>
+                <div ng-bind-html="toTrusted(shortMessage(messagesItem.message))"></div>
              </div>
        </div>
     </div>

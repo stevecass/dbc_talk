@@ -116,5 +116,5 @@ get '/messages/latest' do
 end
 
 get '/messages/newer/:id' do
-  Message.where('id > ?', :id).limit(10).includes(:msg_thread => :topic).order('id desc').to_json(methods: [:thread_name, :topic_id, :topic_name])
+  Message.where('id > ?', params[:id]).limit(10).includes(:msg_thread => :topic).order('id desc').to_json(methods: [:thread_name, :topic_id, :topic_name])
 end
