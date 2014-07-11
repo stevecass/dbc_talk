@@ -44,10 +44,11 @@ class Message < ActiveRecord::Base
     msg_thread.topic_id
   end
 
-  def save_edits(params)
-    m.raw_message = params[:raw_message]
-    m.message = m.raw_message
-    m.save ?  m : nil
+  def save_updated_content(new_raw_message)
+    puts new_raw_message
+    self.raw_message = new_raw_message
+    self.message = raw_message
+    self.save
   end
 
 end

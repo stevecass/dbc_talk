@@ -104,8 +104,8 @@ patch '/topics/:topicid/threads/:threadid/messages/:id' do
   if m.nil?
     status 404
   else
-    m.save_edits(params)
-    send_json((m.nil ? 200 : 500), m.to_json)
+    saved = m.save_updated_content(params[:raw_message])
+    send_json((saved ? 200 : 500), m.to_json)
   end
 end
 
