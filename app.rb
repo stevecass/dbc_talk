@@ -6,7 +6,7 @@ require './helpers'
 ActiveRecord::Base.establish_connection(
   adapter:  'mysql2',
   host:     '127.0.0.1',
-  port:     '1112',
+  #port:     '1112',
   database: 'mumsnet',
   encoding: 'latin1'
 )
