@@ -81,7 +81,7 @@
         s = s.replace(/<(?:.|\n)*?>/gm, '');
         var maxLen = 200;
         if (s.length > maxLen)
-          s = s.substring(s, maxLen).trim() + '...';
+          s = s.substring(0, maxLen).trim() + '...';
         return s;
       }
 
