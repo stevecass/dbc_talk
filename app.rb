@@ -18,6 +18,8 @@ def send_json(a_status, json)
   body json
   json
 end
+pub_msg_excluded_fields = [:userid, :user_post_index, :staff, :ip, :ax, :raw_message, :is_preview]
+pub_msg_extra_methods = [:thread_name, :topic_id, :topic_name]
 
 get '/topics' do
   topics =  Topic.all.order('name')
@@ -33,7 +35,7 @@ get '/topics' do
 end
   
 get '/topics/:id' do
-  Topic.find(params[:id]).to_json
+  send_json(200, Topic.find(params[:id]).to_json)
 end
 
 get '/topics/:topicid/threads' do
@@ -52,7 +54,7 @@ get '/topics/:topicid/threads' do
 end
 
 get '/topics/:topicid/threads/:id' do
-  MsgThread.where(id: params[:id]).to_json
+  send_json(200, MsgThread.where(id: params[:id]).to_json)
 end
 
 get '/topics/:topicid/threads/:id/messages' do
@@ -112,9 +114,11 @@ delete '/topics/:topicid/threads/:threadid/messages/:id' do
 end
 
 get '/messages/latest' do
-  Message.limit(10).includes(:msg_thread => :topic).order('id desc').to_json(methods: [:thread_name, :topic_id, :topic_name])
+  Message.where('is_preview = 0').limit(10).includes(:msg_thread => :topic).order('id desc').to_json(methods: 
+   pub_msg_extra_methods, except: pub_msg_excluded_fields)
 end
 
 get '/messages/newer/:id' do
-  Message.where('id > ?', params[:id]).limit(10).includes(:msg_thread => :topic).order('id desc').to_json(methods: [:thread_name, :topic_id, :topic_name])
+  Message.where('is_preview = 0 and id > ?', params[:id]).limit(10).includes(:msg_thread => :topic).order('id desc').to_json(methods: 
+    pub_msg_extra_methods, except: pub_msg_excluded_fields)
 end
